@@ -1,0 +1,17 @@
+VERIFICATION START
+VERIFYING PAKISTAN SETUP...
+Product: Da'Zeagra Herbal Oil, Profile ID: undefined
+Total Shipping Options: 3
+Option: Express Shipping, Profile ID: sp_01KDKB1WHDB4MSC109KGV7BH2N, Price Type: flat
+  -> MISMATCH: Option Express Shipping has profile sp_01KDKB1WHDB4MSC109KGV7BH2N but product has undefined
+  -> Service Zone: serzo_01KDKB2QSH1PDTB23R7GEZHH3Q
+Option: Standard Shipping, Profile ID: sp_01KDKB1WHDB4MSC109KGV7BH2N, Price Type: flat
+  -> MISMATCH: Option Standard Shipping has profile sp_01KDKB1WHDB4MSC109KGV7BH2N but product has undefined
+  -> Service Zone: serzo_01KDKB2QSH1PDTB23R7GEZHH3Q
+Option: Free Shipping, Profile ID: sp_01KDKB1WHDB4MSC109KGV7BH2N, Price Type: flat
+  -> MISMATCH: Option Free Shipping has profile sp_01KDKB1WHDB4MSC109KGV7BH2N but product has undefined
+  -> Service Zone: serzo_01KDP1F38JM8S2FD01C08S6808
+Fulfillment Set 'Pakistan Delivery' found. ID: fuset_01KDP19DGVS582Z1D0Y498MPTA
+  -> Service Zones: 1
+    -> SZ: Pakistan (serzo_01KDP19DGV0M90KVH1H321SSDB)
+      -> GZ: pk (country)

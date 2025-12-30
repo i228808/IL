@@ -1,0 +1,151 @@
+@import url('https://fonts.cdnfonts.com/css/glacial-indifference');
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import url('https://fonts.googleapis.com/css2?family=Italiana&family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+@layer base {
+  :root {
+    /* Brand - Forest Green - #1A3C28 */
+    --brand-primary: 26 60 40;
+
+    /* Brand - Gold - #D4AF37 */
+    --brand-secondary: 212 175 55;
+
+    /* Backgrounds */
+    --bg-deep: 15 21 16;
+    /* #0F1510 */
+    --bg-card: 22 30 24;
+    /* Slightly lighter forest */
+
+    /* Text */
+    --text-main: 240 240 232;
+    /* #F0F0E8 - Alabaster/Cream */
+    --text-muted: 158 163 160;
+
+    /* Fonts */
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Outfit', sans-serif;
+  }
+
+  body {
+    @apply bg-bg-deep text-text-main font-body antialiased;
+    background-image:
+      radial-gradient(circle at 15% 50%, rgba(26, 60, 40, 0.15), transparent 25%),
+      radial-gradient(circle at 85% 30%, rgba(212, 175, 55, 0.05), transparent 30%);
+    background-attachment: fixed;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading tracking-tight;
+  }
+}
+
+@layer utilities {
+
+  /* Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+
+  /* Glassmorphism */
+  .glass {
+    @apply bg-[#1A3C28]/10 backdrop-blur-xl border border-[#D4AF37]/10 shadow-xl;
+  }
+
+  .glass-card {
+    @apply bg-gradient-to-br from-[#1A3C28]/40 to-[#0F1510]/60 backdrop-blur-lg border border-[#D4AF37]/20 shadow-glow-green;
+  }
+
+  .text-gold {
+    @apply text-brand-secondary;
+  }
+
+  .text-shadow-sm {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+  }
+}
+
+@layer components {
+  .content-container {
+    @apply max-w-[1440px] w-full mx-auto px-6;
+  }
+
+  .contrast-btn {
+    @apply px-6 py-3 border border-brand-secondary rounded-full bg-brand-secondary/10 hover:bg-brand-secondary hover:text-bg-deep text-brand-secondary font-heading uppercase tracking-widest transition-all duration-300 ease-out shadow-glow-gold hover:shadow-lg hover:scale-105;
+  }
+
+  /* Retain Medusa Defaults but mapped */
+  .text-xsmall-regular {
+    @apply text-[10px] leading-4 font-normal;
+  }
+
+  .text-small-regular {
+    @apply text-xs leading-5 font-normal;
+  }
+
+  .text-small-semi {
+    @apply text-xs leading-5 font-semibold;
+  }
+
+  .text-base-regular {
+    @apply text-sm leading-6 font-normal;
+  }
+
+  .text-base-semi {
+    @apply text-sm leading-6 font-semibold;
+  }
+
+  .text-large-regular {
+    @apply text-base leading-6 font-normal;
+  }
+
+  .text-large-semi {
+    @apply text-base leading-6 font-semibold;
+  }
+
+  .text-xl-regular {
+    @apply text-2xl leading-[36px] font-normal;
+  }
+
+  .text-xl-semi {
+    @apply text-2xl leading-[36px] font-semibold;
+  }
+
+  .text-2xl-regular {
+    @apply text-[30px] leading-[48px] font-normal;
+  }
+
+  .text-2xl-semi {
+    @apply text-[30px] leading-[48px] font-semibold;
+  }
+
+  .text-3xl-regular {
+    @apply text-[32px] leading-[44px] font-normal;
+  }
+
+  .text-3xl-semi {
+    @apply text-[32px] leading-[44px] font-semibold;
+  }
+}
