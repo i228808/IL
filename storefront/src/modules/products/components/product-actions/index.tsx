@@ -10,7 +10,7 @@ import { isEqual } from "lodash"
 import { useParams, usePathname, useSearchParams } from "next/navigation"
 import { useEffect, useMemo, useRef, useState } from "react"
 import ProductPrice from "../product-price"
-import MobileActions from "./mobile-actions"
+
 import { useRouter } from "next/navigation"
 
 type ProductActionsProps = {
@@ -162,6 +162,47 @@ export default function ProductActions({
 
         <ProductPrice product={product} variant={selectedVariant} />
 
+        {/* Scarcity & Metrics CTA Section */}
+        <div className="flex flex-col gap-y-4 my-6 animate-pulse-subtle">
+          {/* Dynamic Scarcity */}
+          <div className="flex items-center gap-x-2 text-brand-secondary font-medium text-sm bg-brand-secondary/5 p-3 rounded-lg border border-brand-secondary/20 shadow-glow-gold/10">
+            <span className="animate-bounce">🔥</span>
+            <span>
+              {useMemo(() => {
+                const scarcityMessages = [
+                  "Only 7 left in stock - order soon.",
+                  "Only 12 left - almost sold out!",
+                  "Low stock: 9 items remaining.",
+                  "Only 5 left - high demand product!",
+                  "Limited availability: 11 left.",
+                  "Only 8 left in stock - 15 people are viewing this right now.",
+                ]
+                return scarcityMessages[Math.floor(Math.random() * scarcityMessages.length)]
+              }, [])}
+            </span>
+          </div>
+
+          {/* Metrics Grid */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="flex items-center gap-x-2 text-text-muted text-xs bg-bg-card/50 p-2 rounded border border-white/5">
+              <span>📈</span>
+              <span>1.2k+ Sold</span>
+            </div>
+            <div className="flex items-center gap-x-2 text-text-muted text-xs bg-bg-card/50 p-2 rounded border border-white/5">
+              <span>⭐</span>
+              <span>4.9/5 (200+ Reviews)</span>
+            </div>
+            <div className="flex items-center gap-x-2 text-text-muted text-xs bg-bg-card/50 p-2 rounded border border-white/5">
+              <span>🚚</span>
+              <span>Free Shipping</span>
+            </div>
+            <div className="flex items-center gap-x-2 text-text-muted text-xs bg-bg-card/50 p-2 rounded border border-white/5">
+              <span>📦</span>
+              <span>Discreet Delivery</span>
+            </div>
+          </div>
+        </div>
+
         <Button
           onClick={handleAddToCart}
           disabled={
@@ -172,27 +213,20 @@ export default function ProductActions({
             !isValidVariant
           }
           variant="transparent"
-          className="w-full h-14 bg-brand-secondary text-bg-deep hover:bg-white hover:text-black font-heading font-bold uppercase tracking-[0.2em] text-sm rounded-none border border-transparent hover:border-white transition-all duration-500 shadow-glow-gold"
+          className="w-full h-16 bg-brand-secondary text-bg-deep hover:bg-white hover:text-black font-heading font-bold uppercase tracking-[0.2em] text-base rounded-sm border border-brand-secondary/50 hover:border-white transition-all duration-300 shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:shadow-[0_0_30px_rgba(212,175,55,0.6)] relative overflow-hidden group"
           isLoading={isAdding}
           data-testid="add-product-button"
         >
-          {!selectedVariant && !options
-            ? "Select variant"
-            : !inStock || !isValidVariant
-              ? "Out of stock"
-              : "Add to cart"}
+          <span className="relative z-10">
+            {!selectedVariant && !options
+              ? "Select variant"
+              : !inStock || !isValidVariant
+                ? "Out of stock"
+                : "Add to cart"}
+          </span>
+          <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
         </Button>
-        <MobileActions
-          product={product}
-          variant={selectedVariant}
-          options={options}
-          updateOptions={setOptionValue}
-          inStock={inStock}
-          handleAddToCart={handleAddToCart}
-          isAdding={isAdding}
-          show={!inView}
-          optionsDisabled={!!disabled || isAdding}
-        />
+
       </div>
     </>
   )

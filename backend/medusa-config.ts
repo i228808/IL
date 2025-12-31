@@ -33,5 +33,22 @@ module.exports = defineConfig({
         ],
       },
     },
+    notification: {
+      resolve: "@medusajs/notification",
+      options: {
+        providers: [
+          {
+            resolve: "./src/modules/brevo",
+            id: "brevo",
+            options: {
+              apiKey: process.env.BREVO_API_KEY,
+              fromEmail: process.env.BREVO_FROM_EMAIL,
+              fromName: process.env.BREVO_FROM_NAME || "Intima Lustre",
+              channels: ["email"],
+            },
+          },
+        ],
+      },
+    },
   }
 })

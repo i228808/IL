@@ -2,47 +2,128 @@
 
 import { StarSolid } from "@medusajs/icons"
 import { Text, Heading } from "@medusajs/ui"
-import { HttpTypes } from "@medusajs/types"
+import { useState } from "react"
+import { clx } from "@medusajs/ui"
 
 const reviews = [
     {
         id: 1,
-        author: "Sarah J.",
+        author: "Fatima Ahmed",
         rating: 5,
-        title: "Life Changing Experience",
-        content: "I didn't believe in herbal remedies until I tried Da'Zeagra. The texture is divine, and the results... well, let's just say my partner and I are happier than ever. It's truly a premium product.",
+        title: "Zindagi Badal Dene Wala Tajurba",
+        content: "Mujhe herbal nuskhon par believe nahi tha jab tak maine Da'Zeagra use nahi kiya. Iska texture bohot acha hai aur results... bas ye kahungi ke main aur mere husband pehle se zyada khush hain. Waqai premium cheez hai.",
         date: "2 months ago"
     },
     {
         id: 2,
-        author: "Michael T.",
+        author: "Faizan Malik",
         rating: 5,
-        title: "Absolutely Premium Quality",
-        content: "The packaging, the scent, the feel—everything screams luxury. It's not just an oil; it's an experience. Highly recommended for anyone looking to elevate their vitality.",
+        title: "Bilkul Premium Quality Hai",
+        content: "Packaging, khushboo, feel—sab kuch luxury lagta hai. Ye sirf tel nahi, ek anokha tajurba hai. Jo log apni vitality barhana chahte hain unke liye behtareen hai.",
         date: "1 month ago"
     },
     {
         id: 3,
-        author: "Emily & David",
+        author: "Sana & Bilal",
         rating: 5,
-        title: "Our Secret Ingredient",
-        content: "We've tried many products, but nothing comes close to this. It feels natural, safe, and incredibly effective. Thank you for creating something so beautiful.",
+        title: "Humara Secret Ingredient",
+        content: "Humne bohot products try kiye hain lekin is jaisa koi nahi. Ye natural aur safe lagta hai aur asar bhi kamaal ka hai. Itni achi cheez banane ka shukriya.",
         date: "3 weeks ago"
     },
     {
         id: 4,
-        author: "Jessica R.",
+        author: "Ayesha Khan",
         rating: 5,
-        title: "Worth Every Penny",
-        content: "I was hesitant because of the price (2500 PKR), but one bottle lasts a long time and the quality is unmatched. It has become an essential part of my self-care routine.",
+        title: "Paison Ka Behtareen Istemal",
+        content: "Price (2500 PKR) dekh kar thora socha tha, lekin ek bottle kaafi arsa chalti hai aur quality lajawab hai. Ab ye meri daily routine ka hissa ban gaya hai.",
         date: "1 week ago"
+    },
+    {
+        id: 5,
+        author: "Usman Tariq",
+        rating: 5,
+        title: "Bohot Zabardast Result",
+        content: "Maine pehle bhi kuch oils use kiye thay magar iska asar fori mehsoos hota hai. Thakan door ho jati hai aur body mein nayi jaan aa jati hai.",
+        date: "3 days ago"
+    },
+    {
+        id: 6,
+        author: "Zainab Bibi",
+        rating: 5,
+        title: "Kamaal Ki Cheez Hai",
+        content: "Mere husband ne ye use karna shuru kiya aur unki energy levels mein wazeh farq aya hai. Hum dono is product se bohot mutma'in hain.",
+        date: "5 days ago"
+    },
+    {
+        id: 7,
+        author: "Hamza Ali",
+        rating: 4,
+        title: "Acha Hai Magar Mehenga",
+        content: "Quality mein koi shaq nahi, bohot ala hai. Price thori zyada hai magar results dekh kar lagta hai ke worth it hai.",
+        date: "1 week ago"
+    },
+    {
+        id: 8,
+        author: "Nida & Kashif",
+        rating: 5,
+        title: "Behtareen Tohfa",
+        content: "Maine ye apne husband ko gift kiya tha. Unhe bohot pasand aya. Iski khushboo bohot mild aur relaxing hai.",
+        date: "2 weeks ago"
+    },
+    {
+        id: 9,
+        author: "Raza Hussain",
+        rating: 5,
+        title: "Asli Aur Khalis",
+        content: "Bazaar mein milne waly naqli telon se behtar hai. Iska rang aur khushboo bata deti hai ke ye waqai asli jari bootiyon se bana hai.",
+        date: "2 weeks ago"
+    },
+    {
+        id: 10,
+        author: "Hira Salman",
+        rating: 5,
+        title: "Relaxation Ke Liye Best",
+        content: "Poore din ki thakan ke baad is se massage karne ka maza hi kuch aur hai. Neend bhi bohot achi aati hai.",
+        date: "3 weeks ago"
+    },
+    {
+        id: 11,
+        author: "Omar Farooq",
+        rating: 5,
+        title: "Highly Recommended",
+        content: "Agar aap apne liye kuch acha karna chahte hain to ye zaroor try karein. Main isay pichle 2 mahine se use kar raha hoon aur results consistent hain.",
+        date: "1 month ago"
+    },
+    {
+        id: 12,
+        author: "Sadia Parveen",
+        rating: 5,
+        title: "Skin Ke Liye Bhi Acha",
+        content: "Ye na sirf taqat deta hai balkay skin ko bhi soft rakhta hai. Koi irritation nahi hoti, bohot smooth hai.",
+        date: "1 month ago"
+    },
+    {
+        id: 13,
+        author: "Adeel Shah",
+        rating: 4,
+        title: "Achi Packing",
+        content: "Delivery waqt par hui aur packing bohot safe thi. Product bhi waisa hi hai jaisa describe kiya gaya tha.",
+        date: "2 months ago"
+    },
+    {
+        id: 14,
+        author: "Mariam & Yusuf",
+        rating: 5,
+        title: "Shukriya Da'Zeagra",
+        content: "Humari married life mein is ne nayi khushi bhar di hai. Ek bohot hi natural aur effective product hai.",
+        date: "2 months ago"
     }
 ]
 
 const ReviewCard = ({ review }: { review: typeof reviews[0], index: number }) => {
     return (
         <div
-            className="glass-card p-6 rounded-lg flex flex-col gap-4 hover:bg-brand-primary/20 transition-colors"
+            className="glass-card p-6 rounded-lg flex flex-col gap-4 hover:bg-brand-primary/20 transition-colors animate-fade-in-top"
         >
             <div className="flex justify-between items-start">
                 <div className="flex gap-1 text-brand-secondary">
@@ -64,6 +145,10 @@ const ReviewCard = ({ review }: { review: typeof reviews[0], index: number }) =>
 }
 
 export const ProductReviews = () => {
+    const [showAll, setShowAll] = useState(false)
+
+    const displayedReviews = showAll ? reviews : reviews.slice(0, 4)
+
     return (
         <div className="w-full py-20 bg-bg-deep relative overflow-hidden">
             {/* Background Accents */}
@@ -86,13 +171,18 @@ export const ProductReviews = () => {
                 </div>
 
                 <div className="grid grid-cols-1 medium:grid-cols-2 large:grid-cols-4 gap-6">
-                    {reviews.map((review, index) => (
+                    {displayedReviews.map((review, index) => (
                         <ReviewCard key={review.id} review={review} index={index} />
                     ))}
                 </div>
 
                 <div className="mt-16 text-center">
-                    <button className="contrast-btn px-8 text-sm">Read All Reviews</button>
+                    <button
+                        onClick={() => setShowAll(!showAll)}
+                        className="contrast-btn px-8 text-sm"
+                    >
+                        {showAll ? "Show Less" : "Read All Reviews"}
+                    </button>
                 </div>
             </div>
         </div>

@@ -63,6 +63,7 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
               images={item.variant?.product?.images}
               size="square"
               className="bg-zinc-900" // Ensure dark bg placeholder
+              handle={item.product_handle}
             />
           </LocalizedClientLink>
 
@@ -88,24 +89,24 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
         {/* Desktop: Quantity */}
         {type === "full" && (
           <div className="hidden small:flex flex-col items-center justify-center">
-            <div className="flex items-center gap-2 bg-white/5 rounded-lg p-1 border border-white/10 backdrop-blur-md">
-              <CartItemSelect
-                value={item.quantity}
-                onChange={(value) => changeQuantity(parseInt(value.target.value))}
-                className="w-16 h-10 bg-transparent text-white border-none text-center focus:ring-0 font-body"
-                data-testid="product-select-button"
+            <div className="flex items-center gap-x-1 w-28">
+              <button
+                className="w-8 h-8 flex items-center justify-center bg-white/5 hover:bg-white/10 rounded text-white transition-colors"
+                onClick={() => changeQuantity(item.quantity - 1)}
+                disabled={item.quantity <= 1}
               >
-                {Array.from(
-                  {
-                    length: Math.min(maxQuantity, 10),
-                  },
-                  (_, i) => (
-                    <option value={i + 1} key={i}>
-                      {i + 1}
-                    </option>
-                  )
-                )}
-              </CartItemSelect>
+                &ndash;
+              </button>
+              <div className="w-10 text-center text-white text-sm font-medium">
+                {updating ? <Spinner /> : item.quantity}
+              </div>
+              <button
+                className="w-8 h-8 flex items-center justify-center bg-white/5 hover:bg-white/10 rounded text-white transition-colors"
+                onClick={() => changeQuantity(item.quantity + 1)}
+                disabled={item.quantity >= maxQuantity}
+              >
+                +
+              </button>
             </div>
             <DeleteButton
               id={item.id}
@@ -128,30 +129,43 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
           </div>
         )}
 
-        {/* Desktop: Total */}
-        <div className="hidden small:flex flex-col items-end justify-center">
-          <span className="text-xl font-heading text-brand-secondary">
-            <LineItemPrice
-              item={item}
-              style="tight"
-              currencyCode={currencyCode}
-            />
-          </span>
-        </div>
+        {/* Desktop: Total - OR Preview Price */}
+        {(type === "full" || type === "preview") && (
+          <div className={clx("hidden small:flex flex-col items-end justify-center", {
+            "small:flex": type === "full",
+            "flex col-start-2 row-start-2 place-self-end mt-2": type === "preview"
+          })}>
+            <span className="text-xl font-heading text-brand-secondary">
+              <LineItemPrice
+                item={item}
+                style="tight"
+                currencyCode={currencyCode}
+              />
+            </span>
+          </div>
+        )}
 
         {/* Mobile ONLY: Bottom Row Controls (Qty + Remove + Total) */}
-        <div className="col-span-2 small:hidden flex items-center justify-between mt-2 pt-4 border-t border-white/5 w-full">
+        <div className="col-span-2 small:hidden flex items-center justify-between mt-4 pt-6 border-t border-white/5 w-full">
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 bg-zinc-900/80 rounded-lg p-1 border border-white/10">
-              <CartItemSelect
-                value={item.quantity}
-                onChange={(value) => changeQuantity(parseInt(value.target.value))}
-                className="w-12 h-8 bg-transparent text-white border-none text-center focus:ring-0 text-sm"
+            <div className="flex items-center gap-x-4">
+              <button
+                className="w-8 h-8 flex items-center justify-center bg-white/5 hover:bg-white/10 rounded text-white transition-colors border border-white/10"
+                onClick={() => changeQuantity(item.quantity - 1)}
+                disabled={item.quantity <= 1}
               >
-                {Array.from({ length: Math.min(maxQuantity, 10) }, (_, i) => (
-                  <option value={i + 1} key={i}>{i + 1}</option>
-                ))}
-              </CartItemSelect>
+                &ndash;
+              </button>
+              <div className="w-8 text-center text-white text-sm font-medium">
+                {updating ? <Spinner /> : item.quantity}
+              </div>
+              <button
+                className="w-8 h-8 flex items-center justify-center bg-white/5 hover:bg-white/10 rounded text-white transition-colors border border-white/10"
+                onClick={() => changeQuantity(item.quantity + 1)}
+                disabled={item.quantity >= maxQuantity}
+              >
+                +
+              </button>
             </div>
             <DeleteButton id={item.id} />
           </div>

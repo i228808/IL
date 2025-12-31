@@ -30,6 +30,7 @@ export default async function ProductPreview({
               size="full"
               isFeatured={isFeatured}
               className="group-hover:scale-110 transition-transform duration-500"
+              handle={product.handle}
             />
           </div>
           <div className="flex flex-col mt-4 gap-2 flex-grow">

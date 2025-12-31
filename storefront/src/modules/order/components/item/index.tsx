@@ -13,44 +13,48 @@ type ItemProps = {
 
 const Item = ({ item, currencyCode }: ItemProps) => {
   return (
-    <Table.Row className="w-full" data-testid="product-row">
-      <Table.Cell className="!pl-0 p-4 w-24">
-        <div className="flex w-16">
-          <Thumbnail thumbnail={item.thumbnail} size="square" />
+    <div className="flex flex-col gap-y-4 border-b border-white/10 pb-4 last:border-0 last:pb-0" data-testid="product-row">
+      <div className="flex gap-x-4">
+        <div className="flex w-16 h-16 flex-shrink-0 rounded-md overflow-hidden border border-white/10">
+          <Thumbnail
+            thumbnail={item.thumbnail}
+            images={(item as any).variant?.product?.images}
+            size="square"
+            handle={(item as any).product_handle}
+          />
         </div>
-      </Table.Cell>
 
-      <Table.Cell className="text-left">
-        <Text
-          className="txt-medium-plus text-ui-fg-base"
-          data-testid="product-name"
-        >
-          {item.product_title}
-        </Text>
-        <LineItemOptions variant={item.variant} data-testid="product-variant" />
-      </Table.Cell>
-
-      <Table.Cell className="!pr-0">
-        <span className="!pr-0 flex flex-col items-end h-full justify-center">
-          <span className="flex gap-x-1 ">
-            <Text className="text-ui-fg-muted">
-              <span data-testid="product-quantity">{item.quantity}</span>x{" "}
+        <div className="flex flex-col justify-between flex-grow">
+          <div className="flex flex-col">
+            <Text
+              className="txt-medium-plus text-white text-base-regular"
+              data-testid="product-name"
+            >
+              {item.product_title}
             </Text>
-            <LineItemUnitPrice
+            <LineItemOptions variant={item.variant} data-testid="product-variant" />
+          </div>
+
+          <div className="flex justify-between items-center w-full mt-2">
+            <div className="flex gap-x-2 text-white/60 items-center">
+              <Text className="txt-medium text-white/60">
+                <span data-testid="product-quantity">{item.quantity}</span>x
+              </Text>
+              <LineItemUnitPrice
+                item={item}
+                style="tight"
+                currencyCode={currencyCode}
+              />
+            </div>
+            <LineItemPrice
               item={item}
               style="tight"
               currencyCode={currencyCode}
             />
-          </span>
-
-          <LineItemPrice
-            item={item}
-            style="tight"
-            currencyCode={currencyCode}
-          />
-        </span>
-      </Table.Cell>
-    </Table.Row>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 

@@ -31,8 +31,8 @@ export const paymentInfoMap: Record<
     icon: <PayPal />,
   },
   pp_system_default: {
-    title: "Manual Payment",
-    icon: <CreditCard />,
+    title: "Cash on Delivery",
+    icon: <img src="/buslogo.png" alt="Delivery" className="h-5 w-auto" />,
   },
   pp_safepay_safepay: {
     title: "Safepay",

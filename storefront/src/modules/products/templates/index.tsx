@@ -5,13 +5,16 @@ import ProductActions from "@modules/products/components/product-actions"
 import ProductOnboardingCta from "@modules/products/components/product-onboarding-cta"
 import ProductTabs from "@modules/products/components/product-tabs"
 import RelatedProducts from "@modules/products/components/related-products"
-import ProductInfo from "@modules/products/templates/product-info"
+
 import SkeletonRelatedProducts from "@modules/skeletons/templates/skeleton-related-products"
 import { notFound } from "next/navigation"
 import { HttpTypes } from "@medusajs/types"
 
 import ProductActionsWrapper from "./product-actions-wrapper"
 import ProductReviews from "../components/product-reviews"
+import ProductHeader from "./product-header"
+import ProductDetails from "./product-details"
+import Certificates from "@modules/home/components/certificates"
 
 type ProductTemplateProps = {
   product: HttpTypes.StoreProduct
@@ -41,7 +44,7 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
         </div>
 
         <div className="flex flex-col small:sticky small:top-32 small:py-0 small:max-w-[400px] w-full py-8 gap-y-8">
-          <ProductInfo product={product} />
+          <ProductHeader product={product} />
 
           <Suspense
             fallback={
@@ -55,10 +58,15 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
             <ProductActionsWrapper id={product.id} region={region} />
           </Suspense>
 
+          <ProductDetails />
+
           <ProductTabs product={product} />
           <ProductOnboardingCta />
         </div>
       </div>
+
+      {/* Trust & Certifications */}
+      <Certificates />
 
       {/* Wall of Love Section */}
       <ProductReviews />

@@ -24,7 +24,7 @@ const Review = ({ cart }: { cart: any }) => {
         <Heading
           level="h2"
           className={clx(
-            "flex flex-row text-3xl-regular gap-x-2 items-baseline font-heading",
+            "flex flex-row text-3xl font-heading font-medium gap-x-2 items-baseline text-brand-secondary",
             {
               "opacity-50 pointer-events-none select-none": !isOpen,
             }
@@ -37,11 +37,11 @@ const Review = ({ cart }: { cart: any }) => {
         <>
           <div className="flex items-start gap-x-1 w-full mb-6">
             <div className="w-full">
-              <Text className="txt-medium-plus text-ui-fg-base mb-1">
+              <Text className="txt-medium-plus text-white mb-1">
                 By clicking the Place Order button, you confirm that you have
                 read, understand and accept our Terms of Use, Terms of Sale and
-                Returns Policy and acknowledge that you have read Medusa
-                Store&apos;s Privacy Policy.
+                Returns Policy and acknowledge that you have read Intima Lustre&apos;s
+                Privacy Policy.
               </Text>
             </div>
           </div>

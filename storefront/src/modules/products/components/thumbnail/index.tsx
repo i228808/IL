@@ -11,7 +11,32 @@ type ThumbnailProps = {
   size?: "small" | "medium" | "large" | "full" | "square"
   isFeatured?: boolean
   className?: string
+  handle?: string
   "data-testid"?: string
+}
+
+const sanitizeImageUrl = (url?: string | null) => {
+  if (!url || url === "") return null
+
+  let sanitized = url
+
+  // Handle localhost:8000 (storefront)
+  if (sanitized.includes("localhost:8000")) {
+    sanitized = sanitized.replace(/https?:\/\/localhost:8000/g, "")
+  }
+
+  // Handle localhost:9000 (backend)
+  const backendUrl = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL || "https://admin.intimalustre.com"
+  if (sanitized.includes("localhost:9000")) {
+    sanitized = sanitized.replace(/https?:\/\/localhost:9000/g, backendUrl)
+  }
+
+  // If it's a relative path starting with /static or /uploads, it's likely a backend asset
+  if (sanitized.startsWith("/static") || sanitized.startsWith("/uploads")) {
+    sanitized = `${backendUrl}${sanitized}`
+  }
+
+  return sanitized
 }
 
 const Thumbnail: React.FC<ThumbnailProps> = ({
@@ -21,8 +46,14 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
   isFeatured,
   className,
   "data-testid": dataTestid,
+  handle,
 }) => {
-  const initialImage = thumbnail || images?.[0]?.url
+  let initialImage = sanitizeImageUrl(thumbnail) || sanitizeImageUrl(images?.[0]?.url)
+
+  // Force PNG for Da'Zeagra if image is missing or local path is preferred
+  if (handle?.includes("dazeagra") && (!initialImage || initialImage === "")) {
+    initialImage = "/products/dazeagra-1.png"
+  }
 
   return (
     <Container
@@ -49,7 +80,7 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
 const ImageOrPlaceholder = ({
   image,
   size,
-}: Pick<ThumbnailProps, "size"> & { image?: string }) => {
+}: Pick<ThumbnailProps, "size"> & { image?: string | null }) => {
   return image ? (
     <Image
       src={image}

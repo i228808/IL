@@ -96,11 +96,10 @@ const Payment = ({
       }
 
       if (!shouldInputCard) {
+        // Scroll to top when navigating to review
+        window.scrollTo({ top: 0, behavior: 'instant' })
         return router.push(
-          pathname + "?" + createQueryString("step", "review"),
-          {
-            scroll: false,
-          }
+          pathname + "?" + createQueryString("step", "review")
         )
       }
     } catch (err: any) {
@@ -120,7 +119,7 @@ const Payment = ({
         <Heading
           level="h2"
           className={clx(
-            "flex flex-row text-3xl-regular gap-x-2 items-baseline font-heading",
+            "flex flex-row text-3xl font-heading font-medium gap-x-2 items-baseline text-brand-secondary",
             {
               "opacity-50 pointer-events-none select-none":
                 !isOpen && !paymentReady,
@@ -128,13 +127,12 @@ const Payment = ({
           )}
         >
           Payment
-          {!isOpen && paymentReady && <CheckCircleSolid />}
         </Heading>
         {!isOpen && paymentReady && (
           <Text>
             <button
               onClick={handleEdit}
-              className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
+              className="text-white/80 hover:text-white transition-colors"
               data-testid="edit-payment-button"
             >
               Edit
@@ -151,7 +149,10 @@ const Payment = ({
                 onChange={(value: string) => setPaymentMethod(value)}
               >
                 {availablePaymentMethods.map((paymentMethod) => (
-                  <div key={paymentMethod.id}>
+                  <div
+                    key={paymentMethod.id}
+                    className="w-full"
+                  >
                     {isStripeLike(paymentMethod.id) ? (
                       <StripeCardContainer
                         paymentProviderId={paymentMethod.id}
@@ -176,11 +177,11 @@ const Payment = ({
 
           {paidByGiftcard && (
             <div className="flex flex-col w-1/3">
-              <Text className="txt-medium-plus text-ui-fg-base mb-1">
+              <Text className="txt-medium-plus text-white mb-1">
                 Payment method
               </Text>
               <Text
-                className="txt-medium text-ui-fg-subtle"
+                className="txt-medium text-white/60"
                 data-testid="payment-method-summary"
               >
                 Gift card
@@ -195,7 +196,7 @@ const Payment = ({
 
           <Button
             size="large"
-            className="mt-6"
+            className="mt-6 w-full !bg-brand-secondary !text-black hover:!bg-white hover:!text-black transition-all duration-300 font-heading font-bold uppercase tracking-[0.2em] !rounded-md shadow-[0_0_15px_rgba(212,175,55,0.3)] hover:shadow-[0_0_25px_rgba(212,175,55,0.6)]"
             onClick={handleSubmit}
             isLoading={isLoading}
             disabled={
@@ -212,47 +213,47 @@ const Payment = ({
 
         <div className={isOpen ? "hidden" : "block"}>
           {cart && paymentReady && activeSession ? (
-            <div className="flex items-start gap-x-1 w-full">
-              <div className="flex flex-col w-1/3">
-                <Text className="txt-medium-plus text-ui-fg-base mb-1">
+            <div className="flex flex-col small:flex-row items-start gap-x-1 gap-y-4 w-full">
+              <div className="flex flex-col w-full small:w-1/3">
+                <Text className="txt-medium-plus text-white mb-1">
                   Payment method
                 </Text>
                 <Text
-                  className="txt-medium text-ui-fg-subtle"
+                  className="txt-medium text-white/60"
                   data-testid="payment-method-summary"
                 >
                   {paymentInfoMap[activeSession?.provider_id]?.title ||
                     activeSession?.provider_id}
                 </Text>
               </div>
-              <div className="flex flex-col w-1/3">
-                <Text className="txt-medium-plus text-ui-fg-base mb-1">
+              <div className="flex flex-col w-full small:w-1/3">
+                <Text className="txt-medium-plus text-white mb-1">
                   Payment details
                 </Text>
                 <div
-                  className="flex gap-2 txt-medium text-ui-fg-subtle items-center"
+                  className="flex gap-2 txt-medium text-white/60 items-center"
                   data-testid="payment-details-summary"
                 >
-                  <Container className="flex items-center h-7 w-fit p-2 bg-ui-button-neutral-hover">
+                  <Container className="flex items-center h-7 w-fit p-2 bg-white/20">
                     {paymentInfoMap[selectedPaymentMethod]?.icon || (
-                      <CreditCard />
+                      <CreditCard className="text-white" />
                     )}
                   </Container>
                   <Text>
                     {isStripeLike(selectedPaymentMethod) && cardBrand
                       ? cardBrand
-                      : "Another step will appear"}
+                      : ""}
                   </Text>
                 </div>
               </div>
             </div>
           ) : paidByGiftcard ? (
             <div className="flex flex-col w-1/3">
-              <Text className="txt-medium-plus text-ui-fg-base mb-1">
+              <Text className="txt-medium-plus text-white mb-1">
                 Payment method
               </Text>
               <Text
-                className="txt-medium text-ui-fg-subtle"
+                className="txt-medium text-white/60"
                 data-testid="payment-method-summary"
               >
                 Gift card
@@ -262,7 +263,7 @@ const Payment = ({
         </div>
       </div>
       <Divider className="mt-8" />
-    </div>
+    </div >
   )
 }
 

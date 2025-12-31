@@ -13,10 +13,7 @@ type ProductTabsProps = {
 
 const ProductTabs = ({ product }: ProductTabsProps) => {
   const tabs = [
-    {
-      label: "Product Information",
-      component: <ProductInfoTab product={product} />,
-    },
+
     {
       label: "Shipping & Returns",
       component: <ShippingInfoTab />,
@@ -93,23 +90,13 @@ const ShippingInfoTab = () => {
           </div>
         </div>
         <div className="flex items-start gap-x-2">
-          <Refresh />
-          <div>
-            <span className="font-semibold">Simple exchanges</span>
-            <p className="max-w-sm">
-              Is the fit not quite right? No worries - we&apos;ll exchange your
-              product for a new one.
-            </p>
-          </div>
-        </div>
-        <div className="flex items-start gap-x-2">
           <Back />
           <div>
             <span className="font-semibold">Easy returns</span>
             <p className="max-w-sm">
               Just return your product and we&apos;ll refund your money. No
               questions asked – we&apos;ll do our best to make sure your return
-              is hassle-free.
+              is hassle-free. Please note that we will still deduct shipping costs.
             </p>
           </div>
         </div>

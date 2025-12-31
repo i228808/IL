@@ -20,7 +20,7 @@ export function SubmitButton({
   return (
     <Button
       size="large"
-      className={clx("!bg-brand-secondary !text-black hover:!bg-white hover:!text-black transition-colors font-bold uppercase tracking-widest", className)}
+      className={clx("w-full !bg-brand-secondary !text-black hover:!bg-white hover:!text-black transition-all duration-300 font-heading font-bold uppercase tracking-[0.2em] !rounded-md shadow-[0_0_15px_rgba(212,175,55,0.3)] hover:shadow-[0_0_25px_rgba(212,175,55,0.6)]", className)}
       type="submit"
       isLoading={pending}
       variant={variant || "primary"}

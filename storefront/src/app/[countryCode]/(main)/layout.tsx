@@ -11,6 +11,7 @@ import FreeShippingPriceNudge from "@modules/shipping/components/free-shipping-p
 
 export const metadata: Metadata = {
   metadataBase: new URL(getBaseURL()),
+  title: "Intima Lustre - Premium Wellness Products",
 }
 
 export default async function PageLayout(props: { children: React.ReactNode }) {

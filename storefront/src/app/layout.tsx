@@ -12,6 +12,21 @@ const leagueSpartan = League_Spartan({
 
 export const metadata: Metadata = {
   metadataBase: new URL(getBaseURL()),
+  title: {
+    default: "Intima Lustre - Premium Wellness Products",
+    template: "%s | Intima Lustre"
+  },
+  description: "Discover premium wellness and intimate care products at Intima Lustre. Quality you can trust.",
+  icons: {
+    icon: [
+      { url: "/navlogo-main.png" },
+      { url: "/icon.png", sizes: "any" },
+    ],
+    apple: "/navlogo-main.png",
+  },
+  verification: {
+    google: "NHbDJHsATycCV4d47L2NQCE0-iuOjwKO28j5RsHBqbY",
+  },
 }
 
 export default function RootLayout(props: { children: React.ReactNode }) {

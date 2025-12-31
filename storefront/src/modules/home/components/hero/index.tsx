@@ -35,11 +35,10 @@ const Hero = () => {
             </p>
           </div>
 
-          <div className="flex gap-4">
+          <div className="flex gap-4 mb-12 medium:mb-0">
             <Link href="/products/dazeagra-herbal-oil">
-              <button className="contrast-btn flex items-center gap-2 group">
+              <button className="contrast-btn btn-pop">
                 Shop Now
-                <ArrowRight className="group-hover:translate-x-1 transition-transform" />
               </button>
             </Link>
           </div>
@@ -47,7 +46,7 @@ const Hero = () => {
 
         {/* Product Image Section - CSS Floating Animation Only */}
         <div className="flex-1 relative w-full h-[50vh] medium:h-[80vh] flex items-center justify-center">
-          <div className="relative w-[300px] h-[400px] medium:w-[500px] medium:h-[700px] filter drop-shadow-2xl animate-float">
+          <div className="relative w-[300px] h-[400px] medium:w-[500px] medium:h-[700px] filter drop-shadow-2xl">
             <Image
               src="/products/dazeagra-1.png"
               alt="Da'Zeagra Herbal Oil"
@@ -61,12 +60,6 @@ const Hero = () => {
             <div className="absolute bottom-1/4 -right-10 w-32 h-32 bg-brand-primary/40 rounded-full blur-xl animate-float delay-1000" />
           </div>
         </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-text-muted/50 animate-pulse">
-        <span className="text-[10px] tracking-widest uppercase">Scroll</span>
-        <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-text-muted/50 to-transparent"></div>
       </div>
     </div>
   )

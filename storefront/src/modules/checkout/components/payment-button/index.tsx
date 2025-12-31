@@ -63,6 +63,12 @@ const StripePaymentButton = ({
 
   const onPaymentCompleted = async () => {
     await placeOrder()
+      .then(() => {
+        // Scroll to top after successful order
+        if (typeof window !== 'undefined') {
+          window.scrollTo({ top: 0, behavior: 'instant' })
+        }
+      })
       .catch((err) => {
         setErrorMessage(err.message)
       })
@@ -145,6 +151,7 @@ const StripePaymentButton = ({
         size="large"
         isLoading={submitting}
         data-testid={dataTestId}
+        className="w-full !bg-brand-secondary !text-black hover:!bg-white hover:!text-black transition-all duration-300 font-heading font-bold uppercase tracking-[0.2em] !rounded-md shadow-[0_0_15px_rgba(212,175,55,0.3)] hover:shadow-[0_0_25px_rgba(212,175,55,0.6)]"
       >
         Place order
       </Button>
@@ -162,6 +169,12 @@ const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
 
   const onPaymentCompleted = async () => {
     await placeOrder()
+      .then(() => {
+        // Scroll to top after successful order
+        if (typeof window !== 'undefined') {
+          window.scrollTo({ top: 0, behavior: 'instant' })
+        }
+      })
       .catch((err) => {
         setErrorMessage(err.message)
       })
@@ -184,6 +197,7 @@ const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
         onClick={handlePayment}
         size="large"
         data-testid="submit-order-button"
+        className="w-full !bg-brand-secondary !text-black hover:!bg-white hover:!text-black transition-all duration-300 font-heading font-bold uppercase tracking-[0.2em] !rounded-md shadow-[0_0_15px_rgba(212,175,55,0.3)] hover:shadow-[0_0_25px_rgba(212,175,55,0.6)]"
       >
         Place order
       </Button>

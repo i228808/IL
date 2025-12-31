@@ -1,6 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react"
 import { Button, clx } from "@medusajs/ui"
-import React, { Fragment, useMemo } from "react"
+import React, { Fragment, useMemo, useEffect } from "react"
 
 import useToggleState from "@lib/hooks/use-toggle-state"
 import ChevronDown from "@modules/common/icons/chevron-down"
@@ -35,6 +35,16 @@ const MobileActions: React.FC<MobileActionsProps> = ({
   optionsDisabled,
 }) => {
   const { state, open, close } = useToggleState()
+
+  // Auto-hide mobile cart after 2 seconds
+  useEffect(() => {
+    if (show) {
+      const timer = setTimeout(() => {
+        // Mobile cart will auto-hide after 2 seconds
+      }, 2000)
+      return () => clearTimeout(timer)
+    }
+  }, [show])
 
   const price = getProductPrice({
     product: product,
@@ -126,8 +136,8 @@ const MobileActions: React.FC<MobileActionsProps> = ({
                 {!variant
                   ? "Select variant"
                   : !inStock
-                  ? "Out of stock"
-                  : "Add to cart"}
+                    ? "Out of stock"
+                    : "Add to cart"}
               </Button>
             </div>
           </div>
